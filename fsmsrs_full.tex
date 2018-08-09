@@ -1,0 +1,218 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  This is a sample LaTeX input file for your contribution to 
+%  the M&C2019 topical meeting.
+%
+%  Please use it as a template for your full paper 
+%    Accompanying/related file(s) include: 
+%       1. Document class/format file: mandc.cls
+%       2. Sample Postscript Figure:   figure.pdf
+%       3. A PDF file showing the desired appearance: mandc2019_template.pdf
+%       4. cites.sty and citesort.sty that might be needed by some users 
+%    Direct questions about these files to: palmert@engr.orst.edu
+%											mark.dehart@inl.gov
+%
+%    Notes: 
+%      (1) You can use the "dvips" utility to convert .dvi 
+%          files to PostScript.  Then, use either Acrobat 
+%          Distiller or "ps2pdf" to convert to PDF format. 
+%      (2) Different versions of LaTeX have been observed to 
+%          shift the page down, causing improper margins.
+%          If this occurs, adjust the "topmargin" value in the
+%          physor2018.cls file to achieve the proper margins. 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[letterpaper]{mandc2019}
+%
+%  various packages that you may wish to activate for usage 
+\usepackage{tabls}
+\usepackage{cites}
+\usepackage{epsf}
+\usepackage{appendix}
+\usepackage{ragged2e}
+\usepackage[top=1in, bottom=1.in, left=1.in, right=1.in]{geometry}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+\usepackage{caption}
+\captionsetup{width=1.0\textwidth,font={bf,normalsize},skip=0.3cm,within=none,justification=centering}
+\usepackage[acronym,toc]{glossaries}
+\include{acros}
+
+\makeglossaries
+%\usepackage[justification=centering]{caption}
+
+%
+% Define title...
+%
+\title{FUEL CYCLE PERFORMANCE OF FAST SPECTRUM \\
+  MOLTEN SALT REACTOR DESIGNS}
+%
+% ...and authors
+%
+\author{%
+  % FIRST AUTHORS 
+  %
+  \textbf{Andrei Rykhlevskii$^1$, Benjamin R. Betzler$^2$, Andrew Worrall$^2$, and Kathryn Huff$^1$} \\
+  $^1$Dept. of Nuclear, Plasma, and Radiological Engineering, University of Illinois at \\
+  Urbana-Champaign, Urbana, IL 61801 \\ 
+\\
+  $^2$Oak Ridge National Laboratory \\
+1 Bethel Valley Road, Oak Ridge, TN, USA  \\ 
+\\
+  \url{andreir2@illinois.edu}, \url{betzlerbr@ornl.gov}, \url{worralla@ornl.gov}, \url{kdhuff@illinois.edu}
+}
+%
+% Insert authors' names and short version of title in lines below
+%
+\newcommand{\authorHead}      % Author's names here use et al. if more than 3
+           {Andrei Rykhlevskii}  
+\newcommand{\shortTitle}      % Short title here (Shorten to fit all into a single line)
+           {Fuel Cycle Performance of Fast Molten Salt Reactor designs} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   BEGIN DOCUMENT
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\justify 
+
+\begin{abstract}
+  Use 8.5$\times$11 paper size, with 1'' margins on all sides.  A required 200-250 
+  word abstract starts on this line.  Leave two blank lines before ``ABSTRACT''
+  and one after.  Use 11 point Times New Roman here and single 
+  spacing. The abstract is a very brief summary highlighting main 
+  accomplishments, what is new, and how it relates to the state-of-the-art.
+\end{abstract}
+\keywords{molten salt, fast reactor, depletion, fuel cycle, salt treatment, salt separations}
+
+\section{INTRODUCTION} 
+\label{sec:intro}
+A liquid-fueled \gls{MSR} concepts promise one of the most desirable and competitive, sustainable energy among of many advanced reactor systems \cite{siemer_why_2015}. In \gls{MSR} fissile and/or fertile materials are dissolved in carrier molten salt (e.g., LiF, NaCl) which leads to immediate advantages over traditional, solid-fueled, reactors. These include near-atmospheric pressure in the primary loop, relatively high coolant temperature, outstanding neutron economy, a high level of inherent safety,
+reduced fuel preprocessing, and the ability to continuously remove fission products and add fissile and/or fertile elements without shutdown \cite{leblanc_molten_2010}. 
+
+Historically, researchers focused on thermal spectrum \gls{MSR} concepts with solid graphite moderator.  \gls{ORNL} operated $\approx$8 MW$_{th}$ \gls{MSRE} pilot reactor from 1965 to 1969 to test approaches/materials, demonstrate fissile recycle (both $^{233}$U and $^{235}$U), and determine generic \gls{MSR} operational characteristics \cite{macpherson_molten_1985}. Obtained experience plus promising breakthrough in reprocessing technology \cite{whatley_engineering_1970} chained \gls{ORNL} attention to the simply configured, also graphite-moderated (i.e., thermal or epithermal), single-fluid \gls{MSBR} by the end of the 1960’s. The primary weakness of all one-fluid thermal \gls{MSR} concepts is the fact that the hundreds tons ($\approx$300 t for \gls{MSBR} \cite{robertson_conceptual_1971}) of expensive, radiologically contaminated, neutron-damaged graphite would have to be replaced every 4-10 years, which raises significant waste and economical issues.
+
+In contrast, consistent with \gls{GIF} sustainability and safety goals \cite{gif_generation_2015}, unmoderated (no graphite), one- or two-fluid (blanket equipped) fast spectrum \gls{MSR} concepts eventually became the EUROATOM Consortium's ``reference" \gls{MSR} \cite{noauthor_final_2015}. Other identified advantages of fast \gls{MSR} systems comparing with conventional reactors include: (1) they can operate in breeding (CR\footnote{\gls{CR} $\equiv$ fissile generated/fissile consumed: if CR$<$1 the reactor is a ``converter"; CR$\equiv$1, an ``isobreeder"; CR$>$1, a ``breeder".}$>$1) \cite{noauthor_final_2015,simmons_assessment_1974,mourogov_potentialities_2006}, fertile-free \gls{TRU} burning, or U/Th-supported \gls{TRU} burning \cite{ignatiev_progress_2007} regime; (2) they can potentially work in both $^{232}$Th/$^{233}$U and $^{238}$U/$^{239}$Pu fuel cycles (i.e., thermal \gls{MSR} supports only Th/U); (3) they can be operated in ways that would generate very little long-lived \gls{TRU} waste, and (4) they would use less natural resources (e.g., natural uranium, natural thorium) per unit energy generated. To quantitatively estimate benefits of these capabilities fuel cycle performance analysis for various fast spectrum \gls{MSR} concepts is necessary.
+
+Much of the analysis herein uses unit cell representations of four different fast \gls{MSR} designs: 
+(1) European \gls{MSFR} \cite{noauthor_final_2015}; (2) \gls{MCSFR} \cite{simmons_assessment_1974}; (3) REBUS-3700 \cite{mourogov_potentialities_2006}; (4) \gls{MOSART} \cite{ignatiev_progress_2007}. Some of these designs are two-fluid (1, 2), operate in thorium fuel cycle (1,4), or use \gls{TRU} as start-up fissile material. The concepts (2) and (3) use chloride salts\footnote{The chlorine in the \gls{MCSFR} is fully enriched in $^{37}$Cl because $^{35}$Cl (76\% abundance) is a very strong neutron poison in fast neutron energy range.} while (1) and (2) employ fluorides. This paper discusses the depletion simulation of different fast \glspl{MSR} to identify fuel cycle performance for deployment of this reactor technology.
+
+\section{METHODS} 
+\label{sec:methods}
+To determine Fuel Cycle Performance parameters four different fast spectrum \glspl{MSR} were selected.  Table~\ref{table:fsmsr_concepts} contains summary of principal data of these designs. Fuel cycle performance analysis required depletion simulation for each reactor concept over the whole system lifetime which in this work assumed to be 60 years\footnote{Lifetime for fast \gls{MSR} limited by neutron damage on the reactor vessel. Further R\&D activities should be performed to evaluate maximum fast neutron fluence  and assess structural materials choice. Moreover, \gls{MOSART} concept has graphite reflector which should be replaced every 4 years.}. Full-core 60-years depletion computation for \gls{MSR} model required massive computing power. Computation time can be significantly reduced by performing depletion simulation for simplified unit cell representation instead of full-core one with sophisticated geometry.
+\begin{table}[!htb]
+  \centering
+  \caption{\bf Principal data of selected fast spectrum \glspl{MSR} designs.}
+  \label{table:fsmsr_concepts} 
+  \begin{tabular}{|p{0.18\textwidth}|p{0.18\textwidth}|p{0.18\textwidth}|p{0.17\textwidth}|p{0.17\textwidth}|} \hline 
+   Parameter & \gls{MSFR} & \gls{MCSFR} & REBUS-3700 & \gls{MOSART} \\ \hline
+   Thermal power, MW 				&  3,000 & 6,000     & 3,700 & 2,400   \\ \hline
+   Fuel salt volume (in/out of core)       &18 (9/9)& 38 (16/22)& 55.6 (36.9/18.7) & 49.05 (32.7/16.35) \\ \hline
+   Fertile salt volume (in/out of blanket) & 7.3 (7.3/0) & 75 (55/22)    & --- & --- \\ \hline 
+   Fuel and fertile salt initial composition (mol\%) & LiF-ThF$_4$-$^{233}$UF$_4$ (77.5-19.9-2.6) LiF-ThF$_4$ (77.5-22.5) & NaCl-UCl$_3$-$^{239}$PuCl$_3$ (60-36-4) NaCl-UCl$_3$ (60-40)    
+   & 55 mol\%NaCl+ 45 mol\%(natU+ 16.7at.\%TRU)Cl$_3$ 
+   & LiF-BeF$_2$-ThF$_4$-TRUF$_3$ (69.72-27-1.28) \\ \hline 
+   Fuel cycle & Th/$^{233}$U & U/Pu  & U/TRU & Th/$^{233}$U \\ \hline 
+   Initial fissile inventory, t & \ 5.060 & \ 9.400    & 18.061 & 9.637 \\ \hline 
+  \end{tabular}
+\end{table}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=0.35]{./Figures/fsmsrs.pdf}
+  \caption{Full-core 3D models of \gls{MSFR} (upper left), \gls{MCSFR} (lower left), REBUS-3700 (upper right), \gls{MOSART} (lower right), and 2D unit cell model (center) showing fuel salt (red), fertile salt (green), structural material (blue).}   
+  \label{fig:unit_cell}
+\end{figure}
+
+\subsection{Subsection Title: First Character of Each Non-trivial Word is Uppercase} 
+\label{sec:second}
+
+Double-space before and after secondary titles is automatic.  Figures and 
+tables should appear as close as possible to where they are first
+cited, e.g., Fig.~\ref{fig:amdahl}, in the text.  Figures are numbered in Arabic 
+numerals, with the caption centered below the figure, in \textbf{boldface}. For a better 
+arrangement it is strongly recommended that all the figures must be placed in the``Figures'' 
+folder. Triple-space before the figure, and after the figure caption.
+
+\section{RESULTS} 
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=0.35]{./Figures/fsmsrs.pdf}
+  \caption{Neutron flux energy spectrum for full-core and unit cell models for two-fluid \gls{MSFR} (left) and \gls{MCSFR} (right).}   
+  \label{fig:spectrum_msfr_mcsfr}
+\end{figure}
+
+
+When importing figures or any graphical image please verify two things:
+\vspace{-0.65cm} % THE DISTANCE BETWEEN THE ":" AND THE FIRST LINE OF THE LIST MAY VARY DEPENDING ON THE TEXT LENGTH, CHANGE THIS VALUE DEPENDING ON YOUR NEEDS.
+\begin{itemize} \itemsep1pt \parskip0pt \parsep0pt
+\item Any number, text or symbol is in Times font and is not smaller than 
+  10-point after reduction to the actual window in your paper
+\item That it can be translated into PDF
+\end{itemize}
+
+Equations, such as Eq. (\ref{sample_equation}), should be centered and 
+sequentially numbered to the flush right of the formula.
+
+\begin{equation}
+  \label{sample_equation}
+  \mathrm{Speedup}=\frac{1}{\frac{f}{p}+(1-f)}
+\end{equation}
+
+The continuation of a paragraph after an equation should not be indented.  
+All paragraphs, as well as section or subsection headings, are separated by 
+just one single empty line.
+
+\subsubsection{Sub-subsection level and lower: only first character uppercase}
+
+See Table \ref{table:example} for a sample table.  The ``tabls'' package is
+recommended for improved row and column spacing.  Notice the caption appears 
+above the table by setting the \verb!\caption! command immediately 
+after the \verb!\begin{table}!. Tables are numbered in Roman 
+numerals, with the caption centered above the table, in \textbf{boldface}.  
+Triple-space before and after the table.
+
+\begin{table}[!htb]
+  \centering
+  \caption{\bf Parallel Performance for the Sample Problem}
+  \label{table:example} 
+  \begin{tabular}{|c|c|c|c|} \hline 
+   Parameter \\ \gls{MSFR} & (T$_{s}$/T$_{p}$) & (\%) \\ \hline
+    \ 1 &  100.0 & \ ---    & ---  \\ \hline
+    \ 2 &   52.6 & \ 1.9    & 95.0 \\ \hline 
+  \end{tabular}
+\end{table}
+
+\section{CONCLUSIONS}
+
+Present your summary and conclusions here.
+
+\section*{NOMENCLATURE}
+
+If variables are extensively used in the text, a Nomenclature section would be helpful to the readers.
+
+\section*{ACKNOWLEDGEMENTS}
+
+Acknowledge the help of colleagues and sources of funding, as appropriate.
+
+\textbf{As an example:} The format for this template was adapted from the \LaTeX template for the PHYSOR-2018 conference posted and available on the Internet and 
+most of the \LaTeX\ format definitions contained in this were already defined. The 
+M\&C 2019 organizing committee deeply thank the PHYSOR-2018 technical committee 
+for this great support.
+
+% You can enter a bibliography into the document using the following format, or use the 
+% bibliography style file "mandc.bst" found in the template directory.  You can use the bibliography style file
+% by replacing the current bibliography block with:
+\setlength{\baselineskip}{12pt}
+\bibliographystyle{mandc}
+\bibliography{2019-rykh-fsmsrs-mc}
+
+
+
+
+\end{document}
