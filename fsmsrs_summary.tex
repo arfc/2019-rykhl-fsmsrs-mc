@@ -44,7 +44,7 @@ Much of the analysis herein uses unit cell representations of four different fas
 \label{sec:methods}
 To determine Fuel Cycle Performance parameters full-core and simplified unit cell models of four different fast spectrum \glspl{MSR} designs are created (Fig.~\ref{fig:unit_cell}).  Table~\ref{table:fsmsr_concepts} contains summary of principal data of these designs. Fuel cycle performance analysis required depletion simulation for each reactor concept over the system whole lifetime which in this work assumed 60 years\footnote{Lifetime for fast \gls{MSR} limited by neutron damage on the reactor vessel. Further R\&D activities should be performed to evaluate maximum fast neutron fluence and assess structural materials choice.}. Full-core 60-year depletion computation of \gls{MSR} required massive computing power. Computation time can be significantly reduced by performing depletion simulation for simplified unit cell representation instead of full-core one with sophisticated geometry.
 
-All salt treatments and separation in this work are performed as truly continuous (online) processes using SCALE/TRITON version 6.2.4 Alpha with 238 group ENDF VII.1 cross-section library \cite{rearden_scale_2016}.  Earlier researchers usually used batch-wise approach because most of the reactor physics burnup calculation codes designed to model batch-fueled reactors with solid fuel \cite{powers_new_2013, jeong_equilibrium_2016, betzler_molten_2017, rykhlevskii_online_2017, betzler_fuel_2018}. This approach requires short depletion time steps to minimize the impact of no feed or removal during the time step which leads to a large number of depletion time steps to simulate longer periods of time. It makes lifetime-long depletion calculations computationally expensive. ORIGEN \cite{gauld_isotopic_2011} supports continuous feed and removal but does not track the feed and discharge materials that are important to fuel cycle performance analysis. Thus, alpha version of SCALE/TRITON currently developing in \gls{ORNL} allows simulate lifetime-long truly continuous depletion for \gls{MSR} with reasonable time steps and computation cost.
+All salt treatments and separation in this work are performed as truly continuous (online) processes using SCALE/TRITON version 6.2.4 Alpha with 238 group ENDF VII.1 cross-section library \cite{rearden_scale_2016}.  Earlier researchers usually used batch-wise approach because most of the reactor physics burnup calculation codes designed to model batch-fueled reactors with solid fuel \cite{betzler_molten_2017, rykhlevskii_online_2017}. This approach requires short depletion time steps to minimize the impact of no feed or removal during the time step which leads to a large number of depletion time steps to simulate longer periods of time. It makes lifetime-long depletion calculations computationally expensive. ORIGEN \cite{gauld_isotopic_2011} supports continuous feed and removal but does not track the feed and discharge materials that are important to fuel cycle performance analysis. Thus, alpha version of SCALE/TRITON currently developing in \gls{ORNL} allows simulate lifetime-long truly continuous depletion for \gls{MSR} with reasonable time steps and computation cost.
 \begin{figure}[!htb]
   \centering
   \includegraphics[scale=0.265]{./Figures/fsmsrs.pdf}
@@ -58,8 +58,8 @@ All salt treatments and separation in this work are performed as truly continuou
   \begin{tabular}{p{0.27\textwidth} p{0.14\textwidth} p{0.18\textwidth} p{0.14\textwidth} p{0.15\textwidth}} \toprule 
    Parameter & \gls{MSFR} & \gls{MCSFR} & REBUS-3700 & \gls{MOSART} \\ \midrule
    Thermal power, MW 				&  3,000 & 6,000     & 3,700 & 2,400   \\ 
-   Fuel salt volume (in/out of the core), m$^3$       &18 (9/9)& 38 (16/22)& 55.6 (36.9/18.7) & 49.05 (32.7/16.35) \\ 
-   Fertile salt volume (in/out of the blanket), m$^3$ & 7.3 (7.3/0) & 75 (55/22)    & --- & --- \\
+   Fuel salt volume (in/out), m$^3$       &18 (9/9)& 38 (16/22)& 55.6 (36.9/18.7) & 49.05 (32.7/16.35) \\ 
+   Fertile salt volume (in/out), m$^3$ & 7.3 (7.3/0) & 75 (55/22)    & --- & --- \\
    Fuel and fertile salt initial composition (mol\%) & LiF-ThF$_4$-$^{233}$UF$_4$ (77.5-19.9-2.6) LiF-ThF$_4$ \newline (77.5-22.5) & NaCl-UCl$_3$-$^{239}$PuCl$_3$ (60-36-4) \newline NaCl-UCl$_3$ \newline (60-40)    
    & 55mol\%NaCl+ 45mol\%(natU+ 16.7at.\%TRU)Cl$_3$ 
    & LiF-BeF$_2$-ThF$_4$-TRUF$_3$  \newline (69.72-27-1.28) \\
@@ -141,14 +141,14 @@ operation with full separations and feeds.}
   \centering
   \caption{Fuel Cycle Performance metrics of selected fast spectrum \glspl{MSR} designs.}
   \label{table:metrics} 
-  \begin{tabular}{p{0.44\textwidth} p{0.11\textwidth} p{0.11\textwidth} p{0.11\textwidth} p{0.11\textwidth}} \toprule 
+  \begin{tabular}{p{0.4\textwidth} p{0.13\textwidth} p{0.13\textwidth} p{0.13\textwidth} p{0.13\textwidth}} \toprule 
    Parameter & \gls{MSFR} & \gls{MCSFR} & REBUS & \gls{MOSART} \\ \midrule
    Evaluation Group	&  EG28 & EG23 & EG24 & EG28   \\ 
-   Natural Uranium or Thorium Utilization, t/GWe-yr & TBD & TBD & 0.835 (U) & TBD \\
-   Mass of \gls{SNF}+\gls{HLW} disposed, t/GWe-yr & TBD & TBD & 0.813 & TBD \\
-   Mass of \gls{DU}+\gls{RU}+\gls{RTh} disposed, t/GWe-yr & TBD & TBD & 0.0 & TBD \\
-   Products from Reprocessing/Separation technology, t: \gls{RU}/\gls{TRU}/\gls{FP} &
-   TBD & TBD & 92.3/19.2/79.6 & TBD \\ \bottomrule 
+   Natural Uranium or Thorium Utilization, t/GWe-yr & TBD & TBD & 0.835 (U) & 0.672 (Th) \\
+   Mass of \gls{SNF}+\gls{HLW} disposed, t/GWe-yr & TBD & TBD & 0.813 &  0.821 \\
+   Mass of \gls{DU}+\gls{RU}+\gls{RTh} disposed, t/GWe-yr & TBD & TBD & 0.0 & 0.0 \\
+   Products from Reprocessing/Separation technology, t: \gls{RU}/\gls{RTh}/\gls{TRU}/\gls{FP} &
+   \ \newline TBD & \ \newline TBD & \ \newline 92.3/0/19.2/79.6 & \ \newline 4.2/17.7/6.3/52.1  \\ \bottomrule 
   \end{tabular}
 \end{table*}
 
@@ -173,17 +173,6 @@ above the table by setting the \verb!\caption! command immediately
 after the \verb!\begin{table}!. Tables are numbered in Roman 
 numerals, with the caption centered above the table, in \textbf{boldface}.  
 Triple-space before and after the table.
-
-\begin{table}[!htb]
-  \centering
-  \caption{\bf Parallel Performance for the Sample Problem}
-  \label{table:example} 
-  \begin{tabular}{|c|c|c|c|} \hline 
-   Parameter \\ \gls{MSFR} & (T$_{s}$/T$_{p}$) & (\%) \\ \hline
-    \ 1 &  100.0 & \ ---    & ---  \\ \hline
-    \ 2 &   52.6 & \ 1.9    & 95.0 \\ \hline 
-  \end{tabular}
-\end{table}
 
 \section{CONCLUSIONS}
 
