@@ -1,25 +1,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%  This is a sample LaTeX input file for your contribution to 
+%  This is a sample LaTeX input file for your contribution to
 %  the M&C2019 topical meeting.
 %
-%  Please use it as a template for your full paper 
-%    Accompanying/related file(s) include: 
+%  Please use it as a template for your full paper
+%    Accompanying/related file(s) include:
 %       1. Document class/format file: mandc.cls
 %       2. Sample Postscript Figure:   figure.pdf
 %       3. A PDF file showing the desired appearance: mandc2019_template.pdf
-%       4. cites.sty and citesort.sty that might be needed by some users 
+%       4. cites.sty and citesort.sty that might be needed by some users
 %    Direct questions about these files to: palmert@engr.orst.edu
 %											mark.dehart@inl.gov
 %
-%    Notes: 
-%      (1) You can use the "dvips" utility to convert .dvi 
-%          files to PostScript.  Then, use either Acrobat 
-%          Distiller or "ps2pdf" to convert to PDF format. 
-%      (2) Different versions of LaTeX have been observed to 
+%    Notes:
+%      (1) You can use the "dvips" utility to convert .dvi
+%          files to PostScript.  Then, use either Acrobat
+%          Distiller or "ps2pdf" to convert to PDF format.
+%      (2) Different versions of LaTeX have been observed to
 %          shift the page down, causing improper margins.
 %          If this occurs, adjust the "topmargin" value in the
-%          physor2018.cls file to achieve the proper margins. 
+%          physor2018.cls file to achieve the proper margins.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -27,9 +27,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[letterpaper]{mandc2019}
 %
-%  various packages that you may wish to activate for usage 
-\usepackage{tabls}
+%  various packages that you may wish to activate for usage
+\usepackage{graphicx} % allows inclusion of graphics
+\usepackage{booktabs} % nice rules (thick lines) for tables
+\usepackage{microtype} % improves typography for PDF
+\usepackage{cleveref}
+\usepackage{float}
+\usepackage{placeins}
 \usepackage{cites}
+\usepackage{cite}
 \usepackage{epsf}
 \usepackage{appendix}
 \usepackage{ragged2e}
@@ -48,19 +54,22 @@
 % Define title...
 %
 \title{FUEL CYCLE PERFORMANCE OF FAST SPECTRUM \\
-  MOLTEN SALT REACTOR DESIGNS}
+  MOLTEN SALT REACTOR DESIGNS
+\footnote{Notice:  This manuscript has been authored by UT-Battelle, LLC, under contract DE-AC05-00OR22725 with the US Department of Energy (DOE). The US government retains and the publisher, by accepting the article for publication, acknowledges that the US government retains a nonexclusive, paid-up, irrevocable, worldwide license to publish or reproduce the published form of this manuscript, or allow others to do so, for US government purposes. DOE will provide public access to these results of federally sponsored research in accordance with the DOE Public Access Plan (http://energy.gov/downloads/doe-public-access-plan).}
+		}
 %
 % ...and authors
 %
+
 \author{%
-  % FIRST AUTHORS 
+  % FIRST AUTHORS
   %
   \textbf{Andrei Rykhlevskii$^1$, Benjamin R. Betzler$^2$, Andrew Worrall$^2$, and Kathryn Huff$^1$} \\
   $^1$Dept. of Nuclear, Plasma, and Radiological Engineering, University of Illinois at \\
-  Urbana-Champaign, Urbana, IL 61801 \\ 
+  Urbana-Champaign, Urbana, IL 61801 \\
 \\
   $^2$Oak Ridge National Laboratory \\
-1 Bethel Valley Road, Oak Ridge, TN, USA  \\ 
+1 Bethel Valley Road, Oak Ridge, TN, USA  \\
 \\
   \url{andreir2@illinois.edu}, \url{betzlerbr@ornl.gov}, \url{worralla@ornl.gov}, \url{kdhuff@illinois.edu}
 }
@@ -68,9 +77,9 @@
 % Insert authors' names and short version of title in lines below
 %
 \newcommand{\authorHead}      % Author's names here use et al. if more than 3
-           {Andrei Rykhlevskii}  
+           {Andrei Rykhlevskii et al.}
 \newcommand{\shortTitle}      % Short title here (Shorten to fit all into a single line)
-           {Fuel Cycle Performance of Fast Molten Salt Reactor designs} 
+           {Fuel Cycle Performance of Fast Molten Salt Reactor designs}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   BEGIN DOCUMENT
@@ -78,134 +87,183 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \maketitle
-\justify 
+\justify
 
 \begin{abstract}
-  Use 8.5$\times$11 paper size, with 1'' margins on all sides.  A required 200-250 
+  Use 8.5$\times$11 paper size, with 1'' margins on all sides.  A required 200-250
   word abstract starts on this line.  Leave two blank lines before ``ABSTRACT''
-  and one after.  Use 11 point Times New Roman here and single 
-  spacing. The abstract is a very brief summary highlighting main 
+  and one after.  Use 11 point Times New Roman here and single
+  spacing. The abstract is a very brief summary highlighting main
   accomplishments, what is new, and how it relates to the state-of-the-art.
 \end{abstract}
 \keywords{molten salt, fast reactor, depletion, fuel cycle, salt treatment, salt separations}
 
-\section{INTRODUCTION} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
 \label{sec:intro}
-A liquid-fueled \gls{MSR} concepts promise one of the most desirable and competitive, sustainable energy among of many advanced reactor systems \cite{siemer_why_2015}. In \gls{MSR} fissile and/or fertile materials are dissolved in carrier molten salt (e.g., LiF, NaCl) which leads to immediate advantages over traditional, solid-fueled, reactors. These include near-atmospheric pressure in the primary loop, relatively high coolant temperature, outstanding neutron economy, a high level of inherent safety,
-reduced fuel preprocessing, and the ability to continuously remove fission products and add fissile and/or fertile elements without shutdown \cite{leblanc_molten_2010}. 
+Liquid-fueled \gls{MSR} concepts are one of many advanced reactor technologies that promise a competitive and sustainable energy source \cite{siemer_why_2015}. In these \gls{MSR}s, fissile and/or fertile materials are dissolved in a carrier molten salt (e.g., LiF or NaCl), which offers for several advantages over solid-fueled reactors. These include near-atmospheric pressure in the primary loop, relatively high coolant temperature, outstanding neutron economy, a high level of inherent safety,
+reduced fuel preprocessing, and the ability to continuously remove fission products and add fissile and/or fertile elements without shutdown \cite{leblanc_molten_2010}.
 
-Historically, researchers focused on thermal spectrum \gls{MSR} concepts with solid graphite moderator.  \gls{ORNL} operated $\approx$8 MW$_{th}$ \gls{MSRE} pilot reactor from 1965 to 1969 to test approaches/materials, demonstrate fissile recycle (both $^{233}$U and $^{235}$U), and determine generic \gls{MSR} operational characteristics \cite{macpherson_molten_1985}. Obtained experience plus promising breakthrough in reprocessing technology \cite{whatley_engineering_1970} chained \gls{ORNL} attention to the simply configured, also graphite-moderated (i.e., thermal or epithermal), single-fluid \gls{MSBR} by the end of the 1960’s. The primary weakness of all one-fluid thermal \gls{MSR} concepts is the fact that the hundreds tons ($\approx$300 t for \gls{MSBR} \cite{robertson_conceptual_1971}) of expensive, radiologically contaminated, neutron-damaged graphite would have to be replaced every 4-10 years, which raises significant waste and economical issues.
+Historically, operational experience was limited to thermal spectrum \gls{MSR} concepts with a solid graphite moderator.  \gls{ORNL} operated an $\approx$8 MW$_{th}$ \gls{MSRE} from 1965 to 1969 to test approaches and materials, demonstrate fissile recycle (both $^{233}$U and $^{235}$U), and determine generic \gls{MSR} operational characteristics \cite{macpherson_molten_1985}. Experience and promising breakthroughs in reprocessing technologies \cite{whatley_engineering_1970} led \gls{ORNL} to the simply configured, graphite-moderated (i.e., thermal or intermediate spectrum), single-fluid \gls{MSBR} by the end of the 1960's. The primary weakness of these single-fluid thermal \gls{MSR} concepts is that the hundreds of tons ($\approx$300 t for \gls{MSBR} \cite{robertson_conceptual_1971}) of expensive, radiologically contaminated, and irradiated graphite require replacement every 4--10 years, raising significant waste and economical issues.
 
-In contrast, consistent with \gls{GIF} sustainability and safety goals \cite{gif_generation_2015}, unmoderated (no graphite), one- or two-fluid (blanket equipped) fast spectrum \gls{MSR} concepts eventually became the EUROATOM Consortium's ``reference" \gls{MSR} \cite{noauthor_final_2015}. Other identified advantages of fast \gls{MSR} systems comparing with conventional reactors include: (1) they can operate in breeding (CR\footnote{\gls{CR} $\equiv$ fissile generated/fissile consumed: if CR$<$1 the reactor is a ``converter"; CR$\equiv$1, an ``isobreeder"; CR$>$1, a ``breeder".}$>$1) \cite{noauthor_final_2015,simmons_assessment_1974,mourogov_potentialities_2006}, fertile-free \gls{TRU} burning, or U/Th-supported \gls{TRU} burning \cite{ignatiev_progress_2007} regime; (2) they can potentially work in both $^{232}$Th/$^{233}$U and $^{238}$U/$^{239}$Pu fuel cycles (i.e., thermal \gls{MSR} supports only Th/U); (3) they can be operated in ways that would generate very little long-lived \gls{TRU} waste, and (4) they would use less natural resources (e.g., natural uranium, natural thorium) per unit energy generated. To quantitatively estimate benefits of these capabilities fuel cycle performance analysis for various fast spectrum \gls{MSR} concepts is necessary.
+In contrast, consistent with \gls{GIF} sustainability and safety goals \cite{gif_generation_2015}, unmoderated (no graphite), one- or two-fluid (blanket-equipped) fast spectrum \gls{MSR} concepts eventually became the Euratom ``reference'' \gls{MSR} \cite{euratom_final_2015}. Fast \gls{MSR} systems hold additional advantages over conventional \glspl{LWR}:
+(1) they can operate as a breeder (i.e., with \gls{CR}\footnote{\gls{CR} $\equiv$ fissile generated/fissile consumed: if CR$<$1, the reactor is a ``converter''; CR$\equiv$1, an ``isobreeder''; CR$>$1, a ``breeder''.}$>$1) \cite{euratom_final_2015, simmons_assessment_1974, mourogov_potentialities_2006-1}, fertile-free \gls{TRU} burner, or U/Th-supported \gls{TRU} burner \cite{ignatiev_progress_2007};
+(2) they have the potential to be used in both $^{232}$Th/$^{233}$U and $^{238}$U/$^{239}$Pu fuel cycles;
+(3) they can be operated in ways that would generate very little long-lived \gls{TRU} waste; and
+(4) they would use reduced amounts of natural resources (e.g., natural uranium, natural thorium) per unit energy generated. To quantitatively estimate the benefits of these capabilities, a fuel cycle performance analysis for various fast spectrum \gls{MSR} concepts is necessary.
 
-Much of the analysis herein uses unit cell representations of four different fast \gls{MSR} designs: 
-(1) European \gls{MSFR} \cite{noauthor_final_2015}; (2) \gls{MCSFR} \cite{simmons_assessment_1974}; (3) REBUS-3700 \cite{mourogov_potentialities_2006}; (4) \gls{MOSART} \cite{ignatiev_progress_2007}. Some of these designs are two-fluid (1, 2), operate in thorium fuel cycle (1,4), or use \gls{TRU} as start-up fissile material. The concepts (2) and (3) use chloride salts\footnote{The chlorine in the \gls{MCSFR} is fully enriched in $^{37}$Cl because $^{35}$Cl (76\% abundance) is a very strong neutron poison in fast neutron energy range.} while (1) and (2) employ fluorides. This paper discusses the depletion simulation of different fast \glspl{MSR} to identify fuel cycle performance for deployment of this reactor technology.
+Much of the analysis herein uses unit cell representations of four different fast \gls{MSR} designs:
+(1) European \gls{MSFR} \cite{euratom_final_2015};
+(2) \gls{MCSFR} \cite{simmons_assessment_1974};
+(3) REBUS-3700 \cite{mourogov_potentialities_2006-1};
+(4) \gls{MOSART} \cite{ignatiev_progress_2007}.
+Some of these designs are two fluid (1, 2), operate in thorium fuel cycle (1,4), or use \gls{TRU} as start-up fissile material. Concepts (2) and (3) use chloride salts,\footnote{The chlorine in the \gls{MCSFR} is fully enriched in $^{37}$Cl because $^{35}$Cl (76\% abundance) is a very strong neutron poison in the fast-neutron energy range.} while (1) and (4) use fluorides. This paper discusses the fuel cycle simulation of these concepts to quantify the fuel cycle performance of fast \glspl{MSR}.
 
-\section{METHODS} 
+\section{METHODS}
 \label{sec:methods}
-To determine Fuel Cycle Performance parameters four different fast spectrum \glspl{MSR} were selected.  Table~\ref{table:fsmsr_concepts} contains summary of principal data of these designs. Fuel cycle performance analysis required depletion simulation for each reactor concept over the whole system lifetime which in this work assumed to be 60 years\footnote{Lifetime for fast \gls{MSR} limited by neutron damage on the reactor vessel. Further R\&D activities should be performed to evaluate maximum fast neutron fluence  and assess structural materials choice. Moreover, \gls{MOSART} concept has graphite reflector which should be replaced every 4 years.}. Full-core 60-years depletion computation for \gls{MSR} model required massive computing power. Computation time can be significantly reduced by performing depletion simulation for simplified unit cell representation instead of full-core one with sophisticated geometry.
-\begin{table}[!htb]
-  \centering
-  \caption{\bf Principal data of selected fast spectrum \glspl{MSR} designs.}
-  \label{table:fsmsr_concepts} 
-  \begin{tabular}{|p{0.18\textwidth}|p{0.18\textwidth}|p{0.18\textwidth}|p{0.17\textwidth}|p{0.17\textwidth}|} \hline 
-   Parameter & \gls{MSFR} & \gls{MCSFR} & REBUS-3700 & \gls{MOSART} \\ \hline
-   Thermal power, MW 				&  3,000 & 6,000     & 3,700 & 2,400   \\ \hline
-   Fuel salt volume (in/out of core)       &18 (9/9)& 38 (16/22)& 55.6 (36.9/18.7) & 49.05 (32.7/16.35) \\ \hline
-   Fertile salt volume (in/out of blanket) & 7.3 (7.3/0) & 75 (55/22)    & --- & --- \\ \hline 
-   Fuel and fertile salt initial composition (mol\%) & LiF-ThF$_4$-$^{233}$UF$_4$ (77.5-19.9-2.6) LiF-ThF$_4$ (77.5-22.5) & NaCl-UCl$_3$-$^{239}$PuCl$_3$ (60-36-4) NaCl-UCl$_3$ (60-40)    
-   & 55 mol\%NaCl+ 45 mol\%(natU+ 16.7at.\%TRU)Cl$_3$ 
-   & LiF-BeF$_2$-ThF$_4$-TRUF$_3$ (69.72-27-1.28) \\ \hline 
-   Fuel cycle & Th/$^{233}$U & U/Pu  & U/TRU & Th/$^{233}$U \\ \hline 
-   Initial fissile inventory, t & \ 5.060 & \ 9.400    & 18.061 & 9.637 \\ \hline 
-  \end{tabular}
-\end{table}
+Full-core and simplified unit cell models of four different fast spectrum \glspl{MSR} designs are created (Fig.~\ref{fig:unit_cell}) to determine fuel cycle performance parameters. For full-core models realistic vacuum boundary conditions were applied  while unit cell simplified models used reflective boundary conditions which do not take into account neutron leakage (infinite reactor was assumed). Table~\ref{table:fsmsr_concepts} contains a summary of the principal data of these designs. Fuel cycle performance analysis requires a depletion simulation for each reactor concept over the system lifetime, which in this work is assumed to be 60 years.\footnote{The lifetime of a fast \gls{MSR} is limited by neutron damage on the reactor vessel. Further R\&D activities should be performed to evaluate the maximum fast-neutron fluence and assess structural materials choice.} Full-core 60-year depletion calculations for \gls{MSR}s are computationally prohibitive. Computation time can be significantly reduced by performing depletion simulations for representative simplified unit cells instead of a complex full-core geometry.
 
+\subsection{Tool description}
+All salt treatments and separation in this work are performed as truly continuous (online) processes using SCALE/TRITON version 6.2.4 Alpha \cite{betzler_molten_2017-1} with the 238-group ENDF-B/VII.1 cross-section library \cite{rearden_scale_2016}. Several earlier studies used a batch-wise approach because most reactor physics depletion tools are designed to model batch-fueled reactors with solid fuel \cite{betzler_molten_2017,rykhlevskii_online_2017}. This approach requires short depletion time steps to minimize the impact of material feeds and removals during a given time step, leading to a large number of depletion time steps (i.e., transport calculations). This makes lifetime-long depletion calculations computationally expensive. ORIGEN \cite{gauld_isotopic_2011} supports continuous feeds and removals but does not track the feed and discharge materials that are important to fuel cycle performance analysis. Thus, the version of SCALE/TRITON currently under testing at \gls{ORNL} enables the simulation of continuous processes and the tracking of removed materials over the \gls{MSR} lifetime at a reasonable computational cost.
+
+SCALE/TRITON Alpha currently supports only constant or piece-wise feed and removal rates. Therefore, these rates must be determined for each feed and removal before running a simulation and cannot be adjusted during simulation. One of the features of fast spectrum \gls{MSR}s is the control of long-term reactivity through the fertile material feed rate, avoiding the use of classic reactivity control devices (e.g., reactivity control rods, burnable poisons, soluble poisons). Overall, reactivity control for fast spectrum \gls{MSR}s presents an engineering challenge and is outside of the scope of the paper.
 \begin{figure}[!htb]
   \centering
-  \includegraphics[scale=0.35]{./Figures/fsmsrs.pdf}
-  \caption{Full-core 3D models of \gls{MSFR} (upper left), \gls{MCSFR} (lower left), REBUS-3700 (upper right), \gls{MOSART} (lower right), and 2D unit cell model (center) showing fuel salt (red), fertile salt (green), structural material (blue).}   
+  \includegraphics[scale=0.265]{./Figures/fsmsrs.pdf}
+  \caption{Full-core 3D models of \gls{MSFR} (upper left), \gls{MCSFR} (lower left), REBUS-3700 (upper right), \gls{MOSART} (lower right), and 2D representative unit cell model (center) showing fuel salt (red), fertile salt (green), structural material (blue).}
+  \vspace{-0.15in}
   \label{fig:unit_cell}
 \end{figure}
+\begin{table*}[!htb]
+	\vspace{-0.15in}
+  \centering
+  \caption{Principal data of selected fast spectrum \glspl{MSR} designs.}
+  \label{table:fsmsr_concepts}
+  \begin{tabular}{p{0.27\textwidth} p{0.14\textwidth} p{0.18\textwidth} p{0.14\textwidth} p{0.15\textwidth}} \toprule
+   Parameter & \gls{MSFR} & \gls{MCSFR} & REBUS-3700 & \gls{MOSART} \\ \midrule
+   Thermal power, MW 				&  3,000 & 6,000     & 3,700 & 2,400   \\
+   Fuel salt volume (in/out), m$^3$       &18 (9/9)& 38 (16/22)& 55.6 (36.9/18.7) & 49.05 (32.7/16.35) \\
+   Fertile salt volume (in/out), m$^3$ & 7.3 (7.3/0) & 75 (55/22)    & --- & --- \\
+   Fuel and fertile salt initial composition, mol\% & LiF-ThF$_4$-$^{233}$UF$_4$ (77.5-19.9-2.6) LiF-ThF$_4$ \newline (77.5-22.5) & NaCl-UCl$_3$-$^{239}$PuCl$_3$ (60-36-4) \newline NaCl-UCl$_3$ \newline (60-40)
+   & 55mol\%NaCl+ 45mol\%(natU+ 16.7at.\%TRU)Cl$_3$
+   & LiF-BeF$_2$-ThF$_4$-TRUF$_3$  \newline (69.72-27-1.28) \\
+   Fuel cycle & Th/$^{233}$U & U/Pu  & U/TRU & Th/$^{233}$U \\
+   Initial fissile inventory, t & \ 5.060 & \ 9.400    & 18.061 & 9.637 \\ \bottomrule
+   \end{tabular}
+   \vspace{-0.2in}
+\end{table*}
 
-\subsection{Subsection Title: First Character of Each Non-trivial Word is Uppercase} 
-\label{sec:second}
+\subsection{Models description}
+\label{sec:model}
+In contrast with thermal \gls{MSR}s, fast spectrum concepts do not have a channel or assembly structure but instead use a cylindrical or spherical vessel to contain the homogenized fuel mixture. Two-fluid systems may have a cylindrical (e.g., \gls{MSFR}) or spherical (e.g., \gls{MCSFR}) blanket with fertile salt to reduce neutron leakage and enhance fissile material breeding (Fig.~\ref{fig:unit_cell}). Details regarding the configuration of each reactor can be found in Refs.~\cite{euratom_final_2015, simmons_assessment_1974, mourogov_potentialities_2006-1,ignatiev_molten_2014}. For two-fluid concepts, the 2D unit cell model contains a cylindrical fuel salt channel with a thin outer layer of fertile salt inside a square block of structural material (Hastelloy N). The unit cell model for the single-fluid REBUS-3700 has fuel salt and structural material only; the \gls{MOSART} simplified model consists of a fuel salt square block with a graphite cylinder in the center to represent the 0.2 m graphite reflector needed to increase $^{233}$U breeding from thorium \cite{anshuman_chaube_arfc_2018}.
 
-Double-space before and after secondary titles is automatic.  Figures and 
-tables should appear as close as possible to where they are first
-cited, e.g., Fig.~\ref{fig:amdahl}, in the text.  Figures are numbered in Arabic 
-numerals, with the caption centered below the figure, in \textbf{boldface}. For a better 
-arrangement it is strongly recommended that all the figures must be placed in the``Figures'' 
-folder. Triple-space before the figure, and after the figure caption.
+To prove the viability of unit cell models for depletion simulations, high-fidelity full-core models were developed using the Monte Carlo code SERPENT2 (16 million neutron histories per run) with the ENDF/B-VII.1 library \cite{leppanen_serpent_2015, chadwick_endf/b-vii.1_2011}. For average unit cell models, the geometry and size are optimized to obtain a sufficiently accurate multiplication factor and neutron energy spectrum in a reasonable time using specific metrics:
+\vspace{-0.08in}
+\begin{enumerate}
+	\item eigenvalue discrepancy between full-core and unit cell models less than 300 pcm\footnote{ 1 pcm = 10$^{-5}\Delta k_{eff}/k_{eff}$} at beginning of life;\vspace{-0.11in}
+	\item correlation coefficient (r) for neutron spectrum normalized by lethargy more than 0.995;\vspace{-0.11in}
+	\item approximation error ($\delta$) in total neutron flux less than 3\%.\vspace{-0.08in}
+\end{enumerate}
+Reactor symmetry is leveraged to simplify the geometries to quarter-cell models. For this optimization, a $16\times 16$ spatial mesh for the NEWT neutron transport calculation is used in SCALE/TRITON.
 
-\section{RESULTS} 
+\subsection{Fuel cycle performance metrics}
+\label{sec:metrics}
+The main objective of the work is to analyze fast \gls{MSR} systems and fuel cycles in support of the Systems Analysis and Integration Campaign of the US Department of Energy, Office of Nuclear Energy (DOE-NE). The Evaluation and Screening Study (E\&S) conducted by the DOE-NE gives information about the potential benefits and challenges of nuclear fuel cycle options [i.e., closed fuel cycle with continuous \gls{MA} reprocessing]. This information is needed to strengthen the basis and provide guidance for the activities undertaken by the DOE-NE Fuel Cycle Research and Development program.
 
+DOE established an Evaluation and Screening Team (EST) consisting of national laboratory and industry experts in nuclear fuel cycles to develop the evaluation metrics for 40 representative nuclear fuel cycle options (i.e., Evaluation Groups). From the continuous reprocessing depletion simulations conducted for the four selected fast \gls{MSR} designs, the following evaluation metrics were determined:
+\vspace{-0.08in}
+\begin{enumerate}
+	\item natural uranium per energy generated (for \gls{MCSFR}, REBUS-3700);\vspace{-0.11in}
+	\item natural thorium per energy generated (for \gls{MSFR}, \gls{MOSART});\vspace{-0.11in}
+	\item mass of SNF+HLW\footnote{\gls{SNF}+\gls{HLW}} disposed per energy generated;\vspace{-0.11in}
+	\item mass of DU+RU+RTh\footnote{\gls{DU}+\gls{RU}+\gls{RTh}} disposed per energy  generated;\vspace{-0.08in}
+\end{enumerate}
+For fuel cycle metric computations, a few assumptions were made:
+(1) fission products are separated from the fuel salt and disposed,
+(2) all of the remaining heavy metals are separated from the fuel salt and may be reused to start up additional reactors, and
+(3) the carrier salt also may be reused.
+Results will be compared with metric data for respective Evaluation Groups using representative fuel cycle technologies from the Nuclear Fuel Cycle Evaluation and Screening study \cite{wigeland_nuclear_2014-4} in a full paper.
+
+\section{RESULTS}
+This section presents calculation results, such as neutron flux spectrum for full-core and unit cell models and Nuclear Fuel Cycle Evaluation and Screening study metrics (Table~\ref{table:metrics}).
+\subsection{Full-core and unit cell neutron spectra}
+\label{sec:spectrum}
+\Cref{fig:spectrum_two,fig:spectrum_rebus,fig:spectrum_mosart} show the neutron flux energy spectra for full-core 3D models obtained with SERPENT2 and simplified unit cell 2D models obtained with SCALE/TRITON. Calculated correlation coefficient ($r$) and approximation error ($\delta$) in total neutron spectrum for the unit cell model is indicated in right upper corner of each plot. The most accurate approximation is obtained for the \gls{MOSART}, while the \gls{MCSFR} has the worse approximation quality. The main reason for the discrepancies is the low-energy-group resolution at fast-neutron energies in the 238-group nuclear data library, which was developed for thermal reactors. This issue could be resolved by using problem-oriented nuclear data for fast reactors, but it is computationally expensive.
 \begin{figure}[!htb]
   \centering
-  \includegraphics[scale=0.35]{./Figures/fsmsrs.pdf}
-  \caption{Neutron flux energy spectrum for full-core and unit cell models for two-fluid \gls{MSFR} (left) and \gls{MCSFR} (right).}   
-  \label{fig:spectrum_msfr_mcsfr}
+  \includegraphics[scale=0.545]{./Figures/two_full_vs_unit_spectrum.png}
+      \vspace{-0.2in}
+  \caption{Neutron flux energy spectrum for full-core and unit cell models for two-fluid \gls{MSFR} (top) and \gls{MCSFR} (bottom).}
+  \label{fig:spectrum_two}
+\end{figure}
+%\begin{figure}[!htb]
+%  \centering
+%  \includegraphics[scale=0.58]{./Figures/mcsfr_full_vs_unit_spectrum.png}
+%  \caption{Neutron flux energy spectrum for full-core and unit cell models for two-fluid gls{MCSFR}.}
+%  \label{fig:spectrum_mcsfr}
+%\end{figure}
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=0.58]{./Figures/rebus_full_vs_unit_spectrum.png}
+        \vspace{-0.25in}
+  \caption{Neutron flux energy spectrum for full-core and unit cell models for single-fluid REBUS-3700.}
+  \vspace{-0.2in}
+  \label{fig:spectrum_rebus}
+\end{figure}
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=0.58]{./Figures/mosart_full_vs_unit_spectrum.png}
+        \vspace{-0.25in}
+  \caption{Neutron flux energy spectrum for full-core and unit cell models for single-fluid \gls{MOSART} with graphite reflector.}
+  \label{fig:spectrum_mosart}
+\end{figure}
+\begin{table*}[h!]
+  \centering
+  \caption{Fuel Cycle Performance metrics of selected fast spectrum \glspl{MSR} designs.}
+  \label{table:metrics}
+  \begin{tabular}{p{0.45\textwidth} p{0.11\textwidth} p{0.11\textwidth} p{0.11\textwidth} p{0.11\textwidth}} \toprule
+   Parameter &  \gls{MSFR} & \gls{MCSFR} & REBUS & \gls{MOSART} \\ \midrule
+   Evaluation Group	&  EG28 & EG23 & EG24 & EG28   \\
+   Natural Uranium or Thorium Utilization, t/GWe-yr & 0.625 (Th) & 0.973 (U) & 0.833 (U) & 0.402 (Th) \\
+   Mass of \gls{SNF}+\gls{HLW} disposed, t/GWe-yr & 0.686 & 0.566 & 0.813 &  0.820 \\
+   Mass of DU+RU+RTh disposed, t/GWe-yr & 0.0 & 0.0 & 0.0 &  0.0 \\
+   Products from Reprocessing/Separation technology, tons: \gls{RU}/\gls{RTh}/\gls{TRU}/\gls{FP} &
+   8.7/41.9/0.36/ 69.51 &  83.2/0.0/11.4/ 140.3 & 92.6/0/18.9/ 79.6 & 3.9/12.9/12.9/ 54.1  \\
+ \bottomrule
+  \end{tabular}
+  \vspace{-0.2in}
+\end{table*}
+
+For all four reactor concepts, the neutron energy spectra obtained with the SERPENT Monte Carlo and SCALE/TRITON agree very well as in previous studies \cite{betzler_fuel_2018}. Larger differences are observed in the intermediate energy ranges due to cross section resonances for these energies and to the limited number of energy groups for SCALE/TRITON. Continuous-energy physics is expected to provide better results as it does not suffer from inaccurate cross section representations in resonances and the fast energy range.
+\subsection{Fuel cycle performance analysis}
+\label{sec:performance}
+~\Cref{fig:k_inf} demonstrates that all reactors started with the same small excess of reactivity ($\approx$2000 pcm) and remained critical throughout the 60-year operational lifetime. The thorium-fueled \gls{MSFR} and \gls{MOSART} show a significant reactivity drop during the first few years of operation due to $^{233}$Pa accumulation; it is a strong neutron poison which $\beta$ decays to $^{233}$U with a half-life 27.4 days. For U/Pu concepts (\gls{MCSFR} and REBUS), $^{239}$Np $\beta$ decays \footnote{U-238 captures a neutron to form $^{239}$U which almost immediately $\beta$ decays to $^{239}$Np} to $^{239}$Pu much faster ($\tau_{1/2}=2.356$ days). Therefore, a lower fissile material feed rate is needed to compensate this breeding delay.
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=0.585]{./Figures/k_inf.png}
+  \vspace{-0.25in}
+  \caption{Infinite multiplication factor for four reactor designs during 60 years of operation.}
+  \label{fig:k_inf}
 \end{figure}
 
-
-When importing figures or any graphical image please verify two things:
-\vspace{-0.65cm} % THE DISTANCE BETWEEN THE ":" AND THE FIRST LINE OF THE LIST MAY VARY DEPENDING ON THE TEXT LENGTH, CHANGE THIS VALUE DEPENDING ON YOUR NEEDS.
-\begin{itemize} \itemsep1pt \parskip0pt \parsep0pt
-\item Any number, text or symbol is in Times font and is not smaller than 
-  10-point after reduction to the actual window in your paper
-\item That it can be translated into PDF
-\end{itemize}
-
-Equations, such as Eq. (\ref{sample_equation}), should be centered and 
-sequentially numbered to the flush right of the formula.
-
-\begin{equation}
-  \label{sample_equation}
-  \mathrm{Speedup}=\frac{1}{\frac{f}{p}+(1-f)}
-\end{equation}
-
-The continuation of a paragraph after an equation should not be indented.  
-All paragraphs, as well as section or subsection headings, are separated by 
-just one single empty line.
-
-\subsubsection{Sub-subsection level and lower: only first character uppercase}
-
-See Table \ref{table:example} for a sample table.  The ``tabls'' package is
-recommended for improved row and column spacing.  Notice the caption appears 
-above the table by setting the \verb!\caption! command immediately 
-after the \verb!\begin{table}!. Tables are numbered in Roman 
-numerals, with the caption centered above the table, in \textbf{boldface}.  
-Triple-space before and after the table.
-
-\begin{table}[!htb]
-  \centering
-  \caption{\bf Parallel Performance for the Sample Problem}
-  \label{table:example} 
-  \begin{tabular}{|c|c|c|c|} \hline 
-   Parameter \\ \gls{MSFR} & (T$_{s}$/T$_{p}$) & (\%) \\ \hline
-    \ 1 &  100.0 & \ ---    & ---  \\ \hline
-    \ 2 &   52.6 & \ 1.9    & 95.0 \\ \hline 
-  \end{tabular}
-\end{table}
-
+Normalized per GWe-yr, the \gls{MOSART} and \gls{MSFR} concepts required only 0.402 and 0.625 tons of natural thorium, respectively (\Cref{table:metrics}). Natural uranium utilization per energy generated for the U/Pu cycle concepts \gls{MCSFR} and REBUS is less than 1.0 t/GWe-yr. None of considered reactor designs disposed of heavy metals (\gls{DU}+\gls{RU}+\gls{RTh}) as these were operated in continuous recycle fuel cycles.
+%This results in a total waste reduction (\gls{SNF}+\gls{HLW}) to less than 0.9 t/GWe-yr comparing with 21.92 t/GWe-yr for conventional \gls{LWR}, 9.22 t/GWe-yr for \gls{HTGR}, and 3.99 t/GWe-yr for \gls{SFR} \cite{wigeland_nuclear_2014-4}.
+In addition, \gls{MOSART} and REBUS both use an initial startup fissile composition from \gls{TRU} separated from \glspl{LWR} \gls{SNF}. It may be helpful to reuse \gls{SNF} from 60 years of nuclear power generation.
+%Overall, the considered \gls{MSR} designs outperforms competitive fuel cycle technologies (EG23, EG24, EG28) for resource utilization and waste generation but more detailed analysis will be presented in a full paper.
 \section{CONCLUSIONS}
+The fuel cycle performance of four fast spectrum \gls{MSR} designs was analyzed to determine key fuel cycle metrics. Full-core SERPENT Monte Carlo code and unit cell SCALE/TRITON transport models were created to prove the viability of using simplified unit cell models for long-term (i.e., 60 year) depletion simulations to reduce computational burdens. Comparison between full-core and unit cell fluxes shows a relative error of less than 3.2\% and a correlation coefficient of 0.9956.
 
-Present your summary and conclusions here.
+Unit cell depletion simulations with continuous fission product removal and constant fertile/fissile material feeds show that with a startup infinite multiplication factor of about 1.02, all concepts remain critical during 60 years of operation. Natural uranium or thorium utilization varies from 0.402 t/GWe-yr for the thorium-fueled \gls{MOSART} to 0.973 MTU/GWe-yr for the U/Pu \gls{MCSFR}. \gls{SNF}+\gls{HLW} generation normalized per GWe-yr for all four designs is much less than that for conventional \glspl{LWR}: 0.566 t for \gls{MCSFR}, 0.625 t for \gls{MSFR}, 0.813 t for REBUS-3700, and 0.82 t for \gls{MOSART}. Moreover, the \gls{MCSFR}, \gls{MOSART}, and REBUS designs produce a considerable amount of \gls{TRU}; some fissile material from this may be recovered from the salt after reactor shutdown and reused to start up additional reactors. Particularly, the amount of \gls{TRU} after the 60-year lifetime of the \gls{MCSFR} is enough to start up one additional \gls{MOSART} unit; the amount of \gls{TRU} after the end of life of REBUS may be used for the initial core loading of one additional REBUS unit or two \gls{MOSART} units.
 
-\section*{NOMENCLATURE}
+The unit cell time-dependent analyses that were performed demonstrate predicted fuel cycle performance for fast spectrum \glspl{MSR} concepts and provide direction for future performance studies and design improvement. Additional validation of SCALE/TRITON 6.2.4 Alpha against another continuous reprocessing code (e.g., SERPENT 2) is required to provide more confidence in the results.
 
-If variables are extensively used in the text, a Nomenclature section would be helpful to the readers.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Acknowledgments}
+This research was supported by the DOE-NE Systems Analysis and Integration Campaign and by an appointment to the Oak Ridge National Laboratory Nuclear Engineering Science Laboratory Synthesis (NESLS) Program, sponsored by US Department of Energy and administered by the Oak Ridge Institute for Science and Education.
 
-\section*{ACKNOWLEDGEMENTS}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Acknowledge the help of colleagues and sources of funding, as appropriate.
-
-\textbf{As an example:} The format for this template was adapted from the \LaTeX template for the PHYSOR-2018 conference posted and available on the Internet and 
-most of the \LaTeX\ format definitions contained in this were already defined. The 
-M\&C 2019 organizing committee deeply thank the PHYSOR-2018 technical committee 
-for this great support.
-
-% You can enter a bibliography into the document using the following format, or use the 
+% You can enter a bibliography into the document using the following format, or use the
 % bibliography style file "mandc.bst" found in the template directory.  You can use the bibliography style file
 % by replacing the current bibliography block with:
 \setlength{\baselineskip}{12pt}
