@@ -90,11 +90,25 @@
 \justify
 
 \begin{abstract}
-  Use 8.5$\times$11 paper size, with 1'' margins on all sides.  A required 200-250
-  word abstract starts on this line.  Leave two blank lines before ``ABSTRACT''
-  and one after.  Use 11 point Times New Roman here and single
-  spacing. The abstract is a very brief summary highlighting main
-  accomplishments, what is new, and how it relates to the state-of-the-art.
+In the search for new ways to generate carbon-free, reliable 
+base-load power, interest in advanced nuclear energy technologies, 
+particularly \glspl{MSR}, has resurged with multiple new companies 
+pursuing \gls{MSR} commercialization. To further develop these \gls{MSR} 
+concepts, researchers need simulation tools for analyzing liquid-fueled 
+\gls{MSR} depletion and fuel processing. However, current nuclear reactor 
+physics software is unable to perform depletion calculations for 
+reactor systems with online separations and feeds. This work proposes to 
+develop a Python package, SaltProc. SaltProc couples 
+with the Monte Carlo code, SERPENT2 to realistically simulate a generic 
+\gls{MSR} online reprocessing system by modeling the changing isotopic 
+composition of \gls{MSR} fuel salt. Current models in the literature 
+assumed ideal extraction efficiencies. This work will implement mechanical 
+and chemical 
+models of fuel processing components appearing in various 
+\gls{MSR} schemes. 
+SaltProc capabilities will be demonstrated and validated for a few 
+promising liquid-fueled \gls{MSR} designs with different fuel salt 
+composition, neutron spectra and reprocessing schemes.
 \end{abstract}
 \keywords{molten salt, fast reactor, depletion, fuel cycle, salt treatment, salt separations}
 
@@ -117,7 +131,7 @@ Much of the analysis herein uses unit cell representations of four different fas
 (2) \gls{MCSFR} \cite{simmons_assessment_1974};
 (3) REBUS-3700 \cite{mourogov_potentialities_2006-1};
 (4) \gls{MOSART} \cite{ignatiev_progress_2007}.
-Some of these designs are two fluid (1, 2), operate in thorium fuel cycle (1,4), or use \gls{TRU} as start-up fissile material. Concepts (2) and (3) use chloride salts,\footnote{The chlorine in the \gls{MCSFR} is fully enriched in $^{37}$Cl because $^{35}$Cl (76\% abundance) is a very strong neutron poison in the fast-neutron energy range.} while (1) and (4) use fluorides. This paper discusses the fuel cycle simulation of these concepts to quantify the fuel cycle performance of fast \glspl{MSR}.
+Some of these designs are two fluid (1, 2), operate in thorium fuel cycle (1,4), or use \gls{TRU} as start-up fissile material (3, 4). Concepts (2) and (3) use chloride salts,\footnote{The chlorine in the \gls{MCSFR} is fully enriched in $^{37}$Cl because $^{35}$Cl (76\% abundance) is a very strong neutron poison in the fast-neutron energy range.} while (1) and (4) use fluorides. This paper discusses the fuel cycle simulation of these concepts to quantify the fuel cycle performance of fast \glspl{MSR}.
 \section{METHODS}
 \label{sec:methods}
 Full-core and simplified unit cell models of four different fast spectrum \glspl{MSR} designs are created (Fig.~\ref{fig:unit_cell}) to determine fuel cycle performance parameters. For full-core models realistic vacuum boundary conditions were applied  while unit cell simplified models used reflective boundary conditions which do not take into account neutron leakage (infinite reactor was assumed). Table~\ref{table:fsmsr_concepts} contains a summary of the principal data of these designs. Fuel cycle performance analysis requires a depletion simulation for each reactor concept over the system lifetime, which in this work is assumed to be 60 years\footnote{The lifetime of a fast \gls{MSR} is limited by neutron damage on the reactor vessel. Further R\&D activities should be performed to evaluate the maximum fast-neutron fluence and assess structural materials choice.}. Full-core 60-year depletion calculations for \gls{MSR}s are computationally prohibitive. Computation time can be significantly reduced by performing depletion simulations for representative simplified unit cells instead of a complex full-core geometry.
@@ -126,62 +140,17 @@ Full-core and simplified unit cell models of four different fast spectrum \glspl
   \includegraphics[width=0.8\textwidth]{./Figures/fsmsrs.pdf}
   \caption{Full-core 3D models of \gls{MSFR} (upper left), \gls{MCSFR} (lower left), REBUS-3700 (upper right), \gls{MOSART} (lower right), and 2D representative unit cell model (center) showing fuel salt (red), fertile salt (green), structural material (blue).}
   \label{fig:unit_cell}
-  \vspace{-0.8in}
+  \vspace{-0.5in}
 \end{figure}
 \subsection{Tool description}
-All salt treatments and separation in this work are performed as truly continuous (online) processes using SCALE/TRITON version 6.2.4 Alpha \cite{betzler_implementation_2017-1} with the 238-group ENDF-B/VII.1 cross-section library \cite{rearden_scale_2016}. Several earlier studies used a batch-wise approach because most reactor physics depletion tools are designed to model batch-fueled reactors with solid fuel \cite{betzler_molten_2017,rykhlevskii_online_2017,rykhlevskii_modeling_2019}. This approach requires short depletion time steps to minimize the impact of material feeds and removals during a given time step, leading to a large number of depletion time steps (i.e., transport calculations). This makes lifetime-long depletion calculations computationally expensive. ORIGEN \cite{gauld_isotopic_2011} supports continuous feeds and removals but does not track the feed and discharge materials that are important to fuel cycle performance analysis. Thus, the version of SCALE/TRITON currently under testing at \gls{ORNL} enables the simulation of continuous processes and the tracking of removed materials over the \gls{MSR} lifetime at a reasonable computational cost.
-
-Accounting for continuous removal or addition presents a greater challenge 
-since it 
-requires adding a term to the Bateman equations. In SCALE/TRITON, 
-ORIGEN \cite{gauld_isotopic_2011} solves a set of Bateman equations using 
-one-group averaged fluxes and cross-sections obtained from a transport 
-calculation. The Bateman equations that describe the rate of change of the 
-isotopes due to neutron induced reactions and decay processes can be 
-written in the following form \cite{aufiero_extended_2013}:
-\begin{align} \label{eq:bateman}
-\frac{dN_i}{dt} &= \bar{\Phi}\sum\limits_{j}N_{j}\sigma_{j \rightarrow 		i} - \bar{\Phi}\sum\limits_{j}N_{i}\sigma_{i \rightarrow j} + \sum					\limits_{j}	N_{j}\lambda_{j}b_{j \rightarrow i} - N_{i}\lambda_{i} \\
-& \qquad\qquad (1) \qquad\qquad\quad (2) \qquad\quad\qquad (3) \qquad\qquad (4) \nonumber  \\
-	\intertext{where} 
-	N_i &= \mbox{number density of isotope i}  \nonumber \\
-	N_j &= \mbox{number density of isotope j}  \nonumber \\
-	\bar{\Phi} &= \mbox {average in the space and energy neutron flux}  \nonumber \\
-	\sigma_{j \rightarrow i} &= \mbox{microscopic one-group transmutation cross section}  \nonumber \\
-	\lambda_i &= \mbox{decay constant of nuclide i}  \nonumber \\
-	\lambda_j &= \mbox{decay constant of nuclide j}  \nonumber \\
-	b_{j \to i} &= \mbox{branching fractions of radioactive decay from nuclide j}  \nonumber
-\end{align}
-
-The four terms on the right-hand side of the equation represent (1) the production rate of nuclide $i$ from irradiation, (2) the loss rate of nuclide $i$ due to irradiation, (3) the decay rate of nuclide $j$ into nuclide $i$, and (4) the loss rate of nuclide $i$ due to decay. Most of contemporary neutronics codes were developed for solid-fueled nuclear reactors and do not support removal or feed rates for depletion simulations.
-
-In SCALE/TRITON Alpha, online fuel reprocessing support was explicitly introduced in 
-the system of 
-equations by adding effective decay and transmutation terms for the 
-various nuclides. Fuel refill during fuel salt composition evolution 
-calculations can be taken into account by
-adding a gain term on the right-hand side of the Bateman equations:
-\begin{align} 
-\bar{\Phi}\sum\limits_{k=^{233}U}N_{k}\sigma_{k,f}  \label{eq:feed_term}
-\end{align}
-where $\sigma_{k,f}$ is the one-group fission cross section of feed 
-isotope (e.g., $^{233}$U).
-
-The removal of fission products is achieved by adding an explicit decay 
-term to the Bateman equations. For the generic fission product, $l$, 
-loss term can be added:
-\begin{align} 
-- N_{l}\lambda_{l,removal}  \label{eq:rem_term}
-\end{align}
-where $\lambda_{l,removal}$ is the effective removal time constant of the particular chemical species. 
-
-This approach was recently implemented in SCALE/TRITON Alpha by explicitly introducing continuous reprocessing in the system of Bateman equations and adding 
-effective decay and transmutation terms for each nuclide \cite{betzler_implementation_2017-1}. SCALE/TRITON Alpha currently supports only constant or piece-wise feed and removal rates. Therefore, these rates must be determined for each feed and removal before running a simulation and cannot be adjusted during simulation. One of the features of fast spectrum \gls{MSR}s is the control of long-term reactivity through the fertile material feed rate, avoiding the use of classic reactivity control devices (e.g., reactivity control rods, burnable poisons, soluble poisons). Overall, reactivity control for fast spectrum \gls{MSR}s presents an engineering challenge and is outside of the scope of the paper. Another feature of \gls{MSR}s, delayed neutron precursor drift corresponding to its circulating liquid fuel, is very important for safety transient analysis but has negligible effect on long-term depletion calculations and  not treated here. 
+All salt treatments and separation in this work are performed as truly continuous (online) processes using SCALE/TRITON version 6.2.4 Alpha \cite{betzler_implementation_2017-1} with the 238-group ENDF-B/VII.1 cross-section library \cite{rearden_scale_2016}. Several earlier studies used a batch-wise approach because most reactor physics depletion tools are designed to model batch-fueled reactors with solid fuel \cite{betzler_molten_2017,rykhlevskii_online_2017,rykhlevskii_modeling_2019}. This approach requires short depletion time steps to minimize the impact of material feeds and removals during a given time step, leading to a large number of depletion time steps (i.e., transport calculations). This makes lifetime-long depletion calculations computationally expensive. ORIGEN \cite{gauld_isotopic_2011} supports continuous feeds and removals but does not track the feed and discharge materials that are important to fuel cycle performance analysis. Thus, the version of SCALE/TRITON currently under testing at \gls{ORNL} enables the simulation of continuous processes and the tracking of removed materials over the \gls{MSR} lifetime at a reasonable computational cost. \par
+SCALE/TRITON Alpha currently supports only constant or piece-wise feed and removal rates. Therefore, these rates must be determined for each feed and removal before running a simulation and cannot be adjusted during simulation. One of the features of fast spectrum \gls{MSR}s is the control of long-term reactivity through the fertile material feed rate, avoiding the use of classic reactivity control devices (e.g., reactivity control rods, burnable poisons, soluble poisons). Overall, reactivity control for fast spectrum \gls{MSR}s presents an engineering challenge and is outside of the scope of the paper. Another feature of \gls{MSR}s, delayed neutron precursor drift corresponding to its circulating liquid fuel, is very important for safety transient analysis but has negligible effect on long-term depletion calculations and  not treated here. 
 \begin{table*}[!htb]
 \vspace{-0.3in}
   \centering
   \caption{Principal data of selected fast spectrum \glspl{MSR} designs.}
   \label{table:fsmsr_concepts}
-  \begin{tabular}{p{0.27\textwidth} p{0.14\textwidth} p{0.18\textwidth} p{0.14\textwidth} p{0.15\textwidth}} \toprule
+  \begin{tabular}{p{0.27\textwidth} p{0.14\textwidth} p{0.14\textwidth} p{0.18\textwidth} p{0.14\textwidth}} \toprule
    Parameter & \gls{MSFR} & \gls{MCSFR} & REBUS-3700 & \gls{MOSART} \\ \midrule
    Thermal power, MW 				&  3,000 & 6,000     & 3,700 & 2,400   \\
    Fuel salt volume (in/out), m$^3$       &18 (9/9)& 38 (16/22)& 55.6 (36.9/18.7) & 49.05 (32.7/16.35) \\
@@ -192,14 +161,14 @@ effective decay and transmutation terms for each nuclide \cite{betzler_implement
    Fuel cycle & Th/$^{233}$U & U/Pu  & U/TRU & Th/$^{233}$U \\
    Initial fissile inventory, t & \ 5.060 & \ 9.400    & 18.061 & 9.637 \\ \bottomrule
    \end{tabular}
-   \vspace{-0.45in}
+   \vspace{-0.5in}
 \end{table*}
 \subsection{Models description}
 \label{sec:model}
 In contrast with thermal \gls{MSR}s, fast spectrum concepts do not have a channel or assembly structure but instead use a cylindrical or spherical vessel to contain the homogenized fuel mixture. Two-fluid systems may have a cylindrical (e.g., \gls{MSFR}) or spherical (e.g., \gls{MCSFR}) blanket with fertile salt to reduce neutron leakage and enhance fissile material breeding (Fig.~\ref{fig:unit_cell}). Details regarding the configuration of each reactor can be found in Refs.~\cite{euratom_final_2015, simmons_assessment_1974, mourogov_potentialities_2006-1,ignatiev_molten_2014}. For two-fluid concepts, the 2D unit cell model contains a cylindrical fuel salt channel with a thin outer layer of fertile salt inside a square block of structural material (Hastelloy N). The unit cell model for the single-fluid REBUS-3700 has fuel salt and structural material only; the \gls{MOSART} simplified model consists of a fuel salt square block with a graphite cylinder in the center to represent the 0.2 m graphite reflector needed to increase $^{233}$U breeding from thorium \cite{anshuman_chaube_arfc_2018}.
 
 To prove the viability of unit cell models for depletion simulations, high-fidelity full-core models were developed using the Monte Carlo code SERPENT2 (16 million neutron histories per run) with the ENDF/B-VII.1 library \cite{leppanen_serpent_2015, chadwick_endf/b-vii.1_2011}. For average unit cell models, the geometry and size are optimized to obtain a sufficiently accurate multiplication factor and neutron energy spectrum in a reasonable time using specific metrics:
-\vspace{-0.5in}
+\vspace{-0.1in}
 \begin{enumerate}
 	\item eigenvalue discrepancy between full-core and unit cell models less than 300 pcm\footnote{ 1 pcm = 10$^{-5}\Delta k_{eff}/k_{eff}$} at beginning of life;\vspace{-0.11in}
 	\item Pearson correlation coefficient r (Eq.~\ref{eq:correlation}) for neutron spectrum normalized by lethargy more than 0.995:
@@ -210,14 +179,13 @@ r &= \frac{\sum_{i=1}^{N} (\Phi_i^f-\overline{\Phi^f})(\Phi_i^u-\overline{\Phi^u
 \Phi_i^u &= \mbox{the neutron flux for i$^{th}$ energy group for unit cell} \nonumber\\
 \overline{\Phi^f} &= \mbox{the neutron flux averaged over N energy groups for full core} \nonumber \\
 \overline{\Phi^u} &= \mbox{the neutron flux averaged over N energy groups for unit cell} \nonumber
-\end{align}	
-	\vspace{-0.11in}
+\end{align}		\vspace{-0.3in}
 	\item approximation error $\delta$ (Eq.~\ref{eq:error})  in total neutron flux less than 3\%:
 \begin{align}
 \delta &= | \frac{[\sum_{i=1}^{N} \Phi_i^f] [\sum_{i=1}^{N} \Phi_i^u]}
 {\sum_{i=1}^{N} \Phi_i^f} | \times 100\% < 3\% \label{eq:error}
 \end{align}	
-	\vspace{-0.11in}
+	\vspace{-0.4in}
 \end{enumerate}
 
 Additionally, short-time\footnote{1140 days$\approx$3yrs has been selected due to SERPENT2 burnup limitations for sub-critical systems (if multiplication factor $k_{eff}$ becomes too low the simulation is interrupted).} depletion calculations without online reprocessing were conducted using SERPENT2 for both the full-core and the unit cell model. Next, depleted mass approximation error for all isotopes are calculated to validate depletion calculation results. Finally, approximation error for representative isotopes were plotted for each reactor type to demonstrate the viability of unit cell model for depletion simulations.
@@ -251,30 +219,28 @@ This section presents calculation results, such as neutron flux spectrum for ful
   \includegraphics[width=0.7\textwidth]{./Figures/two_full_vs_unit_spectrum.png}
   \caption{Neutron flux energy spectrum for full-core and unit cell models for two-fluid \gls{MSFR} (top) and \gls{MCSFR} (bottom).}
   \label{fig:spectrum_two}
+    \vspace{-0.5in}
 \end{figure}
-%\begin{figure}[!htb]
-%  \centering
-%  \includegraphics[scale=0.58]{./Figures/mcsfr_full_vs_unit_spectrum.png}
-%  \caption{Neutron flux energy spectrum for full-core and unit cell models for two-fluid gls{MCSFR}.}
-%  \label{fig:spectrum_mcsfr}
-%\end{figure}
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.7\textwidth]{./Figures/rebus_full_vs_unit_spectrum.png}
   \caption{Neutron flux energy spectrum for full-core and unit cell models for single-fluid REBUS-3700.}
   \label{fig:spectrum_rebus}
+    \vspace{-0.5in}
 \end{figure}
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.7\textwidth]{./Figures/mosart_full_vs_unit_spectrum.png}
   \caption{Neutron flux energy spectrum for full-core and unit cell models for single-fluid \gls{MOSART} with graphite reflector.}
   \label{fig:spectrum_mosart}
+    \vspace{-0.5in}
 \end{figure}
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.7\textwidth]{./Figures/msfr_depl_f_vs_u.png}
   \caption{Geometry approximation error in depleted mass of selected isotopes for the \gls{MSFR} during 1140 EFPD of operation without online reprocessing. Both the full-core and the unit cell depletion simulation has been performed using SERPENT2 (36 and 4 million neutron histories per run, respectively.}
   \label{fig:msfr_depl_err}
+    \vspace{-0.5in}
 \end{figure}
 For all four reactor concepts, the neutron energy spectra obtained with the SERPENT Monte Carlo and SCALE/TRITON agree very well as in previous studies \cite{betzler_fuel_2018}. Larger differences are observed in the intermediate energy ranges due to cross section resonances for these energies and to the limited number of energy groups for SCALE/TRITON. Continuous-energy physics is expected to provide better results as it does not suffer from inaccurate cross section representations in resonances and the fast energy range. 
 
@@ -288,6 +254,7 @@ Finally, the unit cell approximation accuracy for depletion simulations was esti
 Similarly, the \gls{MCSFR} breed $^{239}$Pu from $^{238}$U but also directly produces considerable amount of non-fissile $^{240}$Pu. The $^{240}$Pu has high absorption cross section and also degrade neutron economy. At the end of 60-year operation cycle the \gls{MCSFR} storage for fissile material contained about 22 tons of fissile $^{239}$Pu and demonstrate the best among four considered designs doubling time: 23.5 years (e.g., during 60 years of operation the \gls{MCSFR} produces enough $^{239}$Pu to startup two more reactors of this type).
 
 \begin{table*}[hb!]
+  \vspace{-0.3in}
   \centering
   \caption{The E\&S Evaluation Metrics of selected fast spectrum \glspl{MSR} designs.}
   \label{table:metrics}
@@ -301,24 +268,28 @@ Similarly, the \gls{MCSFR} breed $^{239}$Pu from $^{238}$U but also directly pro
    8.7/41.9/0.36/ 69.51 &  83.2/0.0/11.4/ 140.3 & 92.6/0/18.9/ 79.6 & 3.9/12.9/12.9/ 54.1  \\
  \bottomrule
   \end{tabular}
+    \vspace{-0.2in}
 \end{table*}
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.8\textwidth]{./Figures/k_inf.png}
   \caption{Infinite multiplication factor for four reactor designs during 60 years of operation.}
   \label{fig:k_inf}
+    \vspace{-0.5in}
 \end{figure}
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{./Figures/msfr_mcsfr_balance.png}
   \caption{\gls{MSFR} (left) and \gls{MCSFR} (right) heavy metal isotopic salt content during operation calculated with the unit cell model (238-group transport).}
   \label{fig:msfr-u-balance}
+    \vspace{-0.5in}
 \end{figure}
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{./Figures/mosart_rebus_balance.png}
   \caption{\gls{MOSART} (left) and REBUS-3700 (right) heavy metal isotopic salt content during operation calculated with the unit cell model (238-group transport).}
   \label{fig:mosart-balance}
+    \vspace{-0.5in}
 \end{figure}
 
 Normalized per GWe-yr, the \gls{MOSART} and \gls{MSFR} concepts required only 0.402 and 0.663 tons of natural thorium, respectively (\Cref{table:metrics}). Natural uranium utilization per energy generated for the U/Pu cycle concepts \gls{MCSFR} and REBUS is less than 0.9 t/GWe-yr. None of considered reactor designs disposed of heavy metals (\gls{DU}+\gls{RU}+\gls{RTh}) as these were operated in continuous recycle fuel cycles.
