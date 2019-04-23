@@ -25,7 +25,8 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[letterpaper]{mandc2019}
+%\documentclass[letterpaper]{mandc2019}
+\documentclass[draft]{mandc2019}
 %
 %  various packages that you may wish to activate for usage
 \usepackage{graphicx} % allows inclusion of graphics
@@ -90,7 +91,7 @@
 \justify
 
 \begin{abstract}
-In the search for new ways to generate carbon-free, reliable 
+In the search for new ways to generate low-carbon, reliable 
 base-load power, interest in advanced nuclear energy technologies, 
 particularly \glspl{MSR}, has resurged with multiple new conceptual \glspl{MSR} including fast neutron spectrum designs. The fuel cycle performance of four perspective fast \gls{MSR} designs is analyzed using a recently developed SCALE/TRITON 6.2.4 Alpha with continuous online reprocessing support. The fast spectrum and continuous feeds/removals enable these concepts to have remarkable fuel  cycle metrics: (1) resource utilization is about 18 times better than for typical light water reactor (i.e., from $\sim180$ t/GWe-yr to $\sim1$ t/GWe-yr); (2) fast \glspl{MSR} generate about 25 times less nuclear waste than light water reactors. These metrics are compared to similar fuel cycles using alternative technologies. Additionally, full-core and unit cell transport models were created and compared to prove the viability of using simplified unit cell geometries for long-term depletion simulation. The unit cell approximation provided a 20x speedup when depleted mass relative error for major isotopes is less than 2\%. Additional fast \glspl{MSR} design and analysis challenges associated with different fuel cycles and the use of molten salt reactor technology are addressed and discussed.
 \end{abstract}
@@ -174,7 +175,7 @@ r &= \frac{\sum_{i=1}^{N} (\Phi_i^f-\overline{\Phi^f})(\Phi_i^u-\overline{\Phi^u
 
 Additionally, short-time\footnote{1140 days$\approx$3yrs has been selected due to SERPENT2 burnup limitations for sub-critical systems (if multiplication factor $k_{eff}$ becomes too low the simulation is interrupted).} depletion calculations without online reprocessing were conducted using SERPENT2 for both the full-core and the unit cell model. Next, depleted mass approximation error for all isotopes are calculated to validate depletion calculation results. Finally, approximation error for representative isotopes was plotted for each reactor type to demonstrate the viability of the unit cell model for depletion simulations. Reactor symmetry is leveraged to simplify the geometries to quarter-cell models. For this optimization, a $16\times 16$ spatial mesh for the NEWT neutron transport calculation is used in SCALE/TRITON.
 \subsection{Fuel cycle performance metrics}
-\label{sec:performance}
+\label{sec:metrics}
 The main objective of the work is to analyze fast \gls{MSR} systems and fuel cycles in support of the Systems Analysis and Integration Campaign of the US Department of Energy, Office of Nuclear Energy (DOE-NE). The Evaluation and Screening Study (E\&S) conducted by the DOE-NE gives information about the potential benefits and challenges of nuclear fuel cycle options [i.e., closed fuel cycle with continuous \gls{MA} reprocessing]. This information is needed to strengthen the basis and provide guidance for the activities undertaken by the DOE-NE Fuel Cycle Research and Development program.
 
 DOE established an \gls{EST} consisting of national laboratory and industry experts in nuclear fuel cycles to develop the evaluation metrics for 40 representative nuclear fuel cycle options (i.e., Evaluation Groups). From the continuous reprocessing depletion simulations conducted for the four selected fast \gls{MSR} designs, the following evaluation metrics were determined:
