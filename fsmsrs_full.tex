@@ -44,7 +44,7 @@
 \usepackage{enumitem}
 \setlist[itemize]{leftmargin=*}
 \usepackage{caption}
-\usepackage{natbib}
+\usepackage[square,sort,comma,numbers]{natbib}
 \captionsetup{width=1.0\textwidth,font={bf,normalsize},skip=0.3cm,within=none,justification=centering}
 \usepackage[acronym,toc]{glossaries}
 \include{acros}
@@ -191,13 +191,12 @@ For average unit cell models, the geometry and size are optimized to obtain a su
 r &= \frac{\sum_{i=1}^{N} (\Phi_i^f-\overline{\Phi^f})(\Phi_i^u-\overline{\Phi^u})}
 		  {\sqrt{\sum_{i=1}^{N} (\Phi_i^f-\overline{\Phi^f})^2 \sum_{i=1}^{N} (\Phi_i^u-\overline{\Phi^u})^2}} > 0.995 \label{eq:correlation} \\
 \Phi_i^f,\Phi_i^u &= \mbox{the neutron flux for i$^{th}$ energy group for full core and unit cell} \nonumber\\
-\overline{\Phi^f}, \overline{\Phi^u} &= \mbox{the neutron flux averaged over N energy groups for full core and unit cell} \nonumber \\
+\overline{\Phi^f}, \overline{\Phi^u} &= \mbox{the neutron flux averaged over N energy groups for full core and unit cell} \nonumber
 \end{align}		\vspace{-0.3in}
 	\item Approximation error $\delta$ (Eq.~\ref{eq:error})  in total neutron flux less than 3\%:
 \begin{align}
-%\delta &= | \frac{[\sum_{i=1}^{N} \Phi_i^f] [\sum_{i=1}^{N} \Phi_i^u]}
-\delta &= \abs{\frac{\sum_{i=1}^{N} (\Phi_i^f-\Phi_i^u)}
-{\sum_{i=1}^{N} \Phi_i^f}} \times 100\% < 3\% \label{eq:error}
+\delta &= \frac{\sum_{i=1}^{N} \mid \Phi_i^f-\Phi_i^u \mid }
+{\sum_{i=1}^{N} \Phi_i^f} \times 100\% < 3\% \label{eq:error}
 \end{align}	
 	\vspace{-0.4in}
 \end{enumerate}
