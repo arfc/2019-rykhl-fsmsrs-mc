@@ -44,7 +44,9 @@
 \usepackage{enumitem}
 \setlist[itemize]{leftmargin=*}
 \usepackage{caption}
-\usepackage{natbib}
+\usepackage[square,sort,comma,numbers]{natbib}
+\usepackage{amsmath}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \captionsetup{width=1.0\textwidth,font={bf,normalsize},skip=0.3cm,within=none,justification=centering}
 \usepackage[acronym,toc]{glossaries}
 \include{acros}
@@ -96,7 +98,7 @@
 In the search for new ways to generate low-carbon, reliable base-load power, a resurgence of interest in advanced nuclear energy technologies, including \glspl{MSR}, has produced multiple new conceptual \glspl{MSR} including fast neutron spectrum designs. 
 The fuel cycle performance of four historical fast \gls{MSR} designs is analyzed using a recently developed SCALE/TRITON 6.2.4 Alpha with a continuous online reprocessing functionality.
 The fast spectrum and continuous feed and removal of material enable these concepts to have remarkable fuel cycle metrics: (1) resource utilization is approximately 18 times better than for a typical low-enriched thermal spectrum once-through fuel cycle (i.e., from approximately $180$ t/GWe-year to $1$ t/GWe-year); (2) fast \glspl{MSR} generate approximately 25 times less nuclear waste than the current once-through fuel cycle.
-These metrics are consistent with the Evaluation and Screening Study, which produced a technology-agnostic quantification of the characteristic performance of alternate fuel cycles.
+These metrics are consistent with the Evaluation and Screening Study \cite{wigeland_nuclear_2014-4}, which produced a technology-agnostic quantification of the characteristic performance of alternate fuel cycles.
 Additionally, full-core and unit cell transport models were created and compared to verify the viability of using simplified unit cell geometries for long-term depletion simulation.
 The unit cell approximation provided a speedup of 20 times relative to the full-core simulation, with depleted mass relative error for major isotopes of less than 2\%.
 Additional fast \glspl{MSR} design and analysis challenges associated with different fuel cycles and the use of \gls{MSR} technology are addressed and discussed.
@@ -105,7 +107,6 @@ Additional fast \glspl{MSR} design and analysis challenges associated with diffe
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
-\label{sec:intro}
 Liquid-fueled molten salt reactor (\gls{MSR}) concepts are one of many advanced reactor technologies that promise a competitive and sustainable energy source \cite{siemer_why_2015}.
 In these \gls{MSR}s, fissile and/or fertile materials are dissolved in a carrier molten salt (e.g., LiF or NaCl), which offers several potential advantages over solid-fueled reactors.
 These characteristics include improved neutron economy, reduced fuel preprocessing, and the ability to continuously remove fission products and add fissile and/or fertile elements without shutdown \cite{leblanc_molten_2010}.
@@ -132,7 +133,6 @@ Some of these designs are two fluid (1, 2), operate in a thorium fuel cycle (1, 
 Concepts (2) and (3) use chloride salts,\footnote{The chlorine in the \gls{MCSFR} is fully enriched in $^{37}$Cl because $^{35}$Cl (76\% abundance) is a very strong neutron poison in the fast-neutron energy range.} while (1) and (4) use fluorides. 
 This paper discusses the fuel cycle simulation of these concepts to quantify the fuel cycle performance of fast \glspl{MSR}.
 \section{METHODS}
-\label{sec:methods}
 Full-core and simplified unit cell models of four different fast spectrum \glspl{MSR} designs are created (Fig.~\ref{fig:unit_cell}) to determine fuel cycle performance parameters. 
 For full-core models, realistic vacuum boundary conditions were applied  while unit cell simplified models used reflective boundary conditions that  do not take into account neutron leakage (infinite reactor was assumed). 
 Table~\ref{table:fsmsr_concepts} contains a summary of the principal data of these designs. 
@@ -179,7 +179,6 @@ Another feature of \gls{MSR}s, delayed neutron precursor drift corresponding to 
    \end{tabular}
 \end{table*}
 \subsection{Model Descriptions}
-\label{sec:model}
 In contrast with thermal \gls{MSR}s, fast spectrum concepts do not have a channel or assembly structure but instead use a cylindrical or spherical vessel to contain the homogenized fuel mixture.
 Two-fluid systems might have a cylindrical (e.g., \gls{MSFR}) or spherical (e.g., \gls{MCSFR}) blanket with fertile salt to reduce neutron leakage and enhance fissile material breeding (Fig.~\ref{fig:unit_cell}). 
 Details regarding the configuration of each reactor can be found in Refs.~\cite{euratom_final_2015, simmons_assessment_1974, mourogov_potentialities_2006-1,ignatiev_progress_2007}. 
@@ -195,11 +194,10 @@ For average unit cell models, the geometry and size are optimized to obtain a su
 r &= \frac{\sum_{i=1}^{N} (\Phi_i^f-\overline{\Phi^f})(\Phi_i^u-\overline{\Phi^u})}
 		  {\sqrt{\sum_{i=1}^{N} (\Phi_i^f-\overline{\Phi^f})^2 \sum_{i=1}^{N} (\Phi_i^u-\overline{\Phi^u})^2}} > 0.995 \label{eq:correlation}, \mbox{ where} \\
 \Phi_i^f,\Phi_i^u & \mbox{ is the neutron flux for i$^{th}$ energy group for full core and unit cell, and} \nonumber\\
-\overline{\Phi^f}, \overline{\Phi^u} & \mbox{ is the neutron flux averaged over N energy groups for full core and unit cell.} \nonumber \\
+\overline{\Phi^f}, \overline{\Phi^u} & \mbox{ is the neutron flux averaged over N energy groups for full core and unit cell.} \nonumber
 \end{align}		\vspace{-0.3in}
 	\item Approximation error $\delta$ (Eq.~\ref{eq:error})  in total neutron flux less than 3\%:
 \begin{align}
-%\delta &= | \frac{[\sum_{i=1}^{N} \Phi_i^f] [\sum_{i=1}^{N} \Phi_i^u]}
 \delta &= \abs{\frac{\sum_{i=1}^{N} (\Phi_i^f-\Phi_i^u)}
 {\sum_{i=1}^{N} \Phi_i^f}} \times 100\% < 3\%. \label{eq:error}
 \end{align}	
@@ -212,7 +210,6 @@ Finally, the approximation error for representative isotopes was plotted for eac
 Reactor symmetry was leveraged to simplify the geometries to quarter-cell models. 
 For this optimization, a $16\times 16$ spatial mesh for the NEWT neutron transport calculation was used in SCALE/TRITON.
 \subsection{Fuel Cycle Performance Metrics}
-\label{sec:metrics}
 The main objective of this work is to analyze fast \gls{MSR} systems and fuel cycles in support of the Systems Analysis and Integration Campaign of the US Department of Energy, Office of Nuclear Energy (DOE-NE). 
 %The Evaluation and Screening Study (E\&S) conducted by the DOE-NE gives information about the potential benefits and challenges of nuclear fuel cycle options (i.e., closed fuel cycle with continuous \gls{MA} reprocessing).
 %This information is needed to strengthen the basis and provide guidance for activities undertaken by the DOE-NE Fuel Cycle Research and Development Program.
@@ -232,29 +229,28 @@ For fuel cycle metric computations, a few assumptions were made:
 Results are compared with metric data for respective Evaluation Groups using representative fuel cycle technologies from the Nuclear Fuel Cycle E\&S study \cite{wigeland_nuclear_2014-4}.
 \section{RESULTS}
 This section presents calculation results, such as neutron flux spectrum for full-core and unit cell models, the depletion calculations key findings, and the E\&S evaluation metrics.
-
-\begin{figure}[b!]
-  \centering
-  \includegraphics[width=0.65\textwidth]{./Figures/two_full_vs_unit_spectrum.png}
-   \vspace{-0.05in}
-  \caption{Neutron flux energy spectrum for full-core and unit cell models for two-fluid \gls{MSFR} (top) and \gls{MCSFR} (bottom).}
-  \label{fig:spectrum_two}
-\end{figure}
-
 \subsection{Full-core and Unit Cell Neutron Spectra}
-\label{sec:spectrum}
 \Cref{fig:spectrum_two,fig:spectrum_rebus} show the neutron flux energy spectra for full-core 3D models obtained with SERPENT2 and simplified unit cell 2D models obtained with SCALE/TRITON. 
 The calculated correlation coefficient ($r$) and approximation error ($\delta$) in the total neutron spectrum for the unit cell model is indicated in the left upper corner of each plot. 
 The most accurate approximation is obtained for the \gls{MOSART}, while the \gls{MCSFR} has the worst accuracy. 
 The main reason for the discrepancies is the low-energy-group resolution at fast-neutron energies in the 238-group nuclear data library, which was developed for thermal reactors. 
 This issue could be resolved by using problem-oriented nuclear data for fast reactors, but it is computationally expensive.
-
+\begin{figure}[t!]
+   \vspace{-0.35in}
+  \centering
+  \includegraphics[width=0.65\textwidth]{./Figures/two_full_vs_unit_spectrum.png}
+   \vspace{-0.05in}
+  \caption{Neutron flux energy spectrum for full-core and unit cell models for two-fluid \gls{MSFR} (top) and \gls{MCSFR} (bottom).}
+     \vspace{-0.45in}
+  \label{fig:spectrum_two}
+\end{figure}
 \begin{figure}[t!]
   \centering
   \includegraphics[width=\textwidth]{./Figures/rebus_mosart_spectrum.png}
-  	  \vspace{-0.2in}
+  	  \vspace{-0.25in}
   \caption{Neutron flux energy spectrum for full-core and unit cell models for single-fluid REBUS-3700 (left) and \gls{MOSART} (right).}
   \label{fig:spectrum_rebus}
+      \vspace{-0.5in}
 \end{figure}
 %\begin{figure}[!htb]
 %  \centering
@@ -282,11 +278,9 @@ Continuous-energy physics is expected to provide better results as it does not s
 %Furthermore, the unit cell approximation has provided a \textbf{20$\times$} speedup over the original full-core model.
 Finally, the unit cell approximation accuracy for depletion simulations was estimated using SERPENT2 burnup capabilities for the full-core and unit cell model of the \gls{MSFR}. 
 The relative error of unit cell approximation for important isotopes mass after 1140 EFPD (effective full-power days) of salt irradiation is less than 2\% and increases during operation. 
-Furthermore, the unit cell approximation has provided a speedup of \textbf{20 times} over the original full-core model.
+Furthermore, the unit cell approximation has provided a speedup of 20 times over the original full-core model.
 Further method optimization (e.g., using problem-oriented cross-section libraries optimized for fast reactors) is needed to achieve better accuracy.
-
 \subsection{Fuel Cycle Performance Analysis}
-\label{sec:performance}
 \Cref{fig:k_inf} demonstrates that all reactors started with the same small excess of reactivity ($\approx$2000 pcm) and remained critical throughout the 60-year operational lifetime. 
 The thorium-fueled \gls{MSFR} and \gls{MOSART} show a significant reactivity drop during the first few years of operation because of $^{233}$Pa accumulation; this is a strong neutron poison that $\beta$ decays to $^{233}$U with a half-life of 27.4 days. 
 For U/Pu concepts (\gls{MCSFR} and REBUS), $^{239}$Np $\beta$ decays\footnote{$^{238}$U captures a neutron to form $^{239}$U, which almost immediately $\beta$ decays to $^{239}$Np.} to $^{239}$Pu much faster ($\tau_{1/2}=2.356$ days). 
@@ -315,10 +309,11 @@ Over 60 years of operation, REBUS-3700 would consume 85 t of natural uranium and
 \begin{figure}[t!]
   \centering
   \vspace{-0.3in}
-  \includegraphics[width=0.65\textwidth]{./Figures/k_inf.png}
+  \includegraphics[width=0.75\textwidth]{./Figures/k_inf.png}
 	  \vspace{-0.15in}
   \caption{Infinite multiplication factor for four reactor designs during 60 years of operation.}
   \label{fig:k_inf}
+  \vspace{-0.4in}
 \end{figure}
 \begin{figure}[t!]
   \centering
@@ -326,6 +321,7 @@ Over 60 years of operation, REBUS-3700 would consume 85 t of natural uranium and
 	  \vspace{-0.2in}
   \caption{\gls{MSFR} (left) and \gls{MCSFR} (right) heavy metal isotopic salt content during operation calculated with the unit cell model (238-group transport).}
   \label{fig:msfr-u-balance}
+      \vspace{-0.2in}
 \end{figure}
 \begin{figure}[t!]
   \centering
@@ -335,7 +331,6 @@ Over 60 years of operation, REBUS-3700 would consume 85 t of natural uranium and
   \label{fig:mosart-balance}
 \end{figure}
 \subsection{E\&S Evaluation Metrics}
-\label{sec:metrics}
 Evaluation metrics were calculated using the E\&S guide \cite{wigeland_nuclear_2014-4} to evaluate fast \gls{MSR} fuel cycle performance and compare it with other designs (Table~\ref{table:metrics}). 
 Normalized per GWe-year, the \gls{MOSART} and \gls{MSFR} concepts required only 0.402 and 0.663 t of natural thorium, respectively. 
 Natural uranium utilization per energy generated for the U/Pu cycle concepts \gls{MCSFR} and REBUS is less than 0.9 t/GWe-year. 
@@ -361,10 +356,10 @@ The considered reactor designs were operated in a continuous recycle fuel cycle 
 Low natural resource consumption results in a total waste reduction (\gls{SNF}+\gls{HLW}) to less than 0.9 t/GWe-year. % comparing with 21.92 t/GWe-yr for conventional \gls{LWR} and 9.22 t/GWe-yr for advanced \gls{HTGR} \cite{wigeland_nuclear_2014-4}. 
 In addition, \gls{MOSART} and REBUS propose using \gls{TRU} separated from \glspl{LWR} \gls{SNF} as fissile material, reusing the \gls{SNF} from 60 years of nuclear power generation. 
 Notably, the lower natural resource utilization does not directly correlate with the mass of disposed waste because initial TRU from \gls{LWR} \gls{SNF} to fuel the \gls{MOSART} and REBUS was considered as ``free" resource and was not included in natural uranium/thorium mass. 
-Overall, the fuel cycle performance of the considered \gls{MSR} designs is consistent with fast spectrum continuous recycle fuel cycles evaluated under the E\&S Study (EG23, EG24, EG28)  \cite{wigeland_nuclear_2014-4}. % but $^{233}$U/Th fast critical reactors with continuous recycle and new enriched uranium as startup fuel (EG27, EG37) presumably would perform even better.
+Overall, the fuel cycle performance of the considered \gls{MSR} designs is consistent with fast spectrum continuous recycle fuel cycles evaluated under the E\&S Study (EG23, EG24, EG28)  \cite{wigeland_nuclear_2014-4}. 
 \section{CONCLUSIONS}
 The fuel cycle performance of four fast spectrum \gls{MSR} designs was analyzed to determine key fuel cycle metrics. 
-Full-core SERPENT Monte Carlo transport models and 2D unit cell SCALE/TRITON deterministic transport models were created to demonstrate the viability of using simplified unit cell models for long-term (i.e., 60 years) fuel cycle simulations to reduce computational burdens. 
+Full-core transport models for SERPENT Monte Carlo code and 2D unit cell models for SCALE/TRITON deterministic transport were created to demonstrate the viability of using simplified unit cell models for long-term (i.e., 60 years) fuel cycle simulations to reduce computational burdens. 
 Comparison between full-core and unit cell fluxes shows a relative error of less than 3.2\% and a correlation coefficient of 0.9956, while the unit cell geometry approximation has provided a 20$\times$ speedup.
 
 Unit cell depletion simulations with continuous fission product removal and constant fertile/fissile material feeds show that with a startup infinite multiplication factor of approximately 1.02, all concepts remain critical during 60 years of operation. 
